@@ -1,0 +1,64 @@
+---
+
+- name: Install apt-key
+  apt_key:
+    id: 0EBFCD88
+    keyserver: keyserver.ubuntu.com
+
+- name: Ensure https transport to be available
+  apt:
+    name: apt-transport-https
+
+- name: Activate apt-repo
+  apt_repository:
+    repo: 'deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable'
+    state: present
+
+- name: Install docker
+  apt:
+    name: docker-ce
+    update_cache: yes
+
+- set_fact:
+    docker_global_ipv6: "{{ ansible_eth0.ipv6 | selectattr('scope', 'equalto', 'global') | first }}"
+  when: docker_configure_ipv6 and ansible_eth0 and ansible_eth0.ipv6 | selectattr('scope', 'equalto', 'global') | list | length > 0
+
+- set_fact:
+    docker_ipv6_subnet: "{{ docker_global_ipv6.address | ipsubnet(docker_global_ipv6.prefix) | ipsubnet(80, -1) }}"
+  when: docker_global_ipv6 is defined
+
+- name: Create docker drop-in directory
+  file:
+    dest: /etc/systemd/system/docker.service.d
+    state: directory
+
+- name: Configure docker start options
+  template:
+    src: docker-startopts.conf
+    dest: /etc/systemd/system/docker.service.d/docker-startopts.conf
+  register: docker_startopts
+
+- name: Restart docker to apply new config
+  systemd:
+    name: docker.service
+    state: restarted
+    daemon_reload: yes
+  when: docker_startopts.changed
+
+- name: Create docker configuration dir
+  file:
+    dest: '{{ docker_auth_config_homedir }}/.docker'
+    mode: 0700
+    owner: '{{ docker_auth_config_user }}'
+    state: directory
+  when: docker_auth_config is defined
+
+- name: Enable authentication for private registries
+  copy:
+    content: '{{ docker_auth_config | to_nice_json }}'
+    dest: '{{ docker_auth_config_homedir }}/.docker/config.json'
+    mode: 0600
+    owner: '{{ docker_auth_config_user }}'
+  when: docker_auth_config is defined
+
+...

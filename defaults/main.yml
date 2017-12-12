@@ -1,0 +1,15 @@
+---
+
+docker_configure_ipv6: true
+
+#docker_auth_config:
+#  auths:
+#    my.registry:
+#      auth: '{{ "user:pass" | b64encode }}'
+docker_auth_config_user: root
+docker_auth_config_homedir: /root
+
+docker_start_opts:
+- -H fd://
+
+...
