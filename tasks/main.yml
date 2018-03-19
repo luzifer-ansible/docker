@@ -8,6 +8,7 @@
 - name: Ensure https transport to be available
   apt:
     name: apt-transport-https
+    cache_valid_time: 86400
 
 - name: Activate apt-repo
   apt_repository:
@@ -17,7 +18,7 @@
 - name: Install docker
   apt:
     name: docker-ce
-    update_cache: yes
+    cache_valid_time: 86400
 
 - set_fact:
     docker_global_ipv6: "{{ ansible_eth0.ipv6 | selectattr('scope', 'equalto', 'global') | first }}"
