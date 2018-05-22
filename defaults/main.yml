@@ -1,5 +1,7 @@
 ---
 
+docker_channel: stable # one of: stable, test, edge, nightly
+
 docker_configure_ipv6: true
 
 #docker_auth_config:
