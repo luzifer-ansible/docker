@@ -12,6 +12,6 @@ docker_auth_config_user: root
 docker_auth_config_homedir: /root
 
 docker_start_opts:
-- -H fd://
+- -H unix:///var/run/docker.sock
 
 ...
