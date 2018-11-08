@@ -1,3 +1,7 @@
+# 0.3.1 / 2018-11-08
+
+  * Fix: Docker daemon no longer starting
+
 # 0.3.0 / 2018-05-22
 
   * Allow release channel to be configured
