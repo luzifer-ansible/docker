@@ -1,3 +1,7 @@
+# 0.3.2 / 2018-11-15
+
+  * Fix: apt-key download is failing
+
 # 0.3.1 / 2018-11-08
 
   * Fix: Docker daemon no longer starting
