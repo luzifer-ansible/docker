@@ -1,3 +1,7 @@
+# 0.4.0 / 2019-05-12
+
+  * Add support for archlinux
+
 # 0.3.2 / 2018-11-15
 
   * Fix: apt-key download is failing
