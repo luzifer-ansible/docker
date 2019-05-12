@@ -4,6 +4,7 @@ This role installs latest docker-ce on a host, configures its startup parameters
 
 ## Requirements
 
+- Archlinux
 - Debian >= 8 (jessie)
 - Ubuntu >= 16.04 (xenial)
 

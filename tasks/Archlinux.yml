@@ -1,0 +1,14 @@
+---
+
+- name: Install docker
+  pacman:
+    name: docker
+    update_cache: true
+
+- name: Enable and start docker
+  systemd:
+    name: docker
+    enabled: true
+    state: started
+
+...

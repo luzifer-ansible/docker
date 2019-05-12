@@ -1,0 +1,24 @@
+---
+
+- name: Install apt-key
+  apt_key:
+    id: 0EBFCD88
+    url: 'https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg'
+    keyring: /etc/apt/trusted.gpg.d/docker.gpg
+
+- name: Ensure https transport to be available
+  apt:
+    name: apt-transport-https
+    cache_valid_time: 86400
+
+- name: Activate apt-repo
+  apt_repository:
+    repo: 'deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_channel }}'
+    state: present
+
+- name: Install docker
+  apt:
+    name: docker-ce
+    cache_valid_time: 86400
+
+...
