@@ -1,3 +1,7 @@
+# 0.5.0 / 2020-11-09
+
+  * Add option for docker-mirrors
+
 # 0.4.0 / 2019-05-12
 
   * Add support for archlinux
