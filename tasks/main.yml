@@ -22,12 +22,18 @@
     dest: /etc/systemd/system/docker.service.d/docker-startopts.conf
   register: docker_startopts
 
+- name: Configure registry mirrors
+  copy:
+    content: '{"registry-mirrors": {{ docker_registry_mirrors | to_json }}}'
+    dest: /etc/docker/daemon.json
+  register: docker_mirrors
+
 - name: Restart docker to apply new config
   systemd:
     name: docker.service
     state: restarted
     daemon_reload: yes
-  when: docker_startopts.changed
+  when: docker_startopts.changed or docker_mirrors.changed
 
 - name: Create docker configuration dir
   file:

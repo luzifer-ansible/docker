@@ -14,4 +14,6 @@ docker_auth_config_homedir: /root
 docker_start_opts:
 - -H unix:///var/run/docker.sock
 
+docker_registry_mirrors: []
+
 ...
