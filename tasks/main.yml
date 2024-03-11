@@ -1,7 +1,7 @@
 ---
 
 - name: "Loading distribution specific instructions for {{ ansible_distribution }}"
-  include: "{{ ansible_distribution }}.yml"
+  include_tasks: "{{ ansible_distribution }}.yml"
 
 - set_fact:
     docker_global_ipv6: "{{ ansible_eth0.ipv6 | selectattr('scope', 'equalto', 'global') | first }}"

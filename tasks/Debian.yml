@@ -1,5 +1,5 @@
 ---
 
-- include: Ubuntu.yml
+- include_tasks: Ubuntu.yml
 
 ...
