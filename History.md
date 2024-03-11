@@ -1,3 +1,7 @@
+# 0.5.1 / 2024-03-12
+
+  * Fix: Replace deprecated include builtin
+
 # 0.5.0 / 2020-11-09
 
   * Add option for docker-mirrors
