@@ -1,3 +1,7 @@
+# 0.5.2 / 2026-10-16
+
+  * chore: replace deprecated use of facts injected as variables
+
 # 0.5.1 / 2024-03-12
 
   * Fix: Replace deprecated include builtin
