@@ -1,11 +1,11 @@
 ---
 
-- name: "Loading distribution specific instructions for {{ ansible_distribution }}"
-  include_tasks: "{{ ansible_distribution }}.yml"
+- name: "Loading distribution specific instructions for {{ ansible_facts['distribution'] }}"
+  include_tasks: "{{ ansible_facts['distribution'] }}.yml"
 
 - set_fact:
-    docker_global_ipv6: "{{ ansible_eth0.ipv6 | selectattr('scope', 'equalto', 'global') | first }}"
-  when: docker_configure_ipv6 and ansible_eth0 and ansible_eth0.ipv6 | selectattr('scope', 'equalto', 'global') | list | length > 0
+    docker_global_ipv6: "{{ ansible_facts['eth0'].ipv6 | selectattr('scope', 'equalto', 'global') | first }}"
+  when: docker_configure_ipv6 and ansible_facts['eth0'] and ansible_facts['eth0'].ipv6 | selectattr('scope', 'equalto', 'global') | list | length > 0
 
 - set_fact:
     docker_ipv6_subnet: "{{ docker_global_ipv6.address | ipsubnet(docker_global_ipv6.prefix) | ipsubnet(80, -1) }}"
